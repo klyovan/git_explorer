@@ -5,7 +5,7 @@ import 'package:git_explorer/l10n/l10n.dart';
 import 'package:git_explorer/presentation/blocs/search_item_bloc/search_item_bloc.dart';
 import 'package:git_explorer/presentation/blocs/search_item_bloc/search_item_event.dart';
 import 'package:git_explorer/presentation/blocs/search_item_bloc/search_item_state.dart';
-import 'package:go_router/go_router.dart';
+import 'package:git_explorer/presentation/widgets/repo_card.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -87,52 +87,13 @@ class _OnSuccessSearchItem extends StatelessWidget {
         height: 2,
         color: Theme.of(context).dividerColor,
       ),
-      itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: 100,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 200),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(items[index].name,
-                            overflow: TextOverflow.ellipsis),
-                        Row(
-                          children: [
-                            Text('Open issues: ${items[index].openIssues}'),
-                            if (items[index].openIssues > 0)
-                              IconButton(
-                                  onPressed: () {
-                                    context.go(
-                                        '/issues/${items[index].owner.login}/${items[index].name}');
-                                  },
-                                  icon: const Icon(Icons.remove_red_eye))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(items[index].owner.login),
-                      Image.network(
-                        items[index].owner.avatarUrl,
-                        height: 50,
-                        width: 50,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ],
-          )),
+      itemBuilder: (context, index) => RepoCard(
+        items: items,
+        avatarUrl: items[index].owner.avatarUrl,
+        login: items[index].owner.login,
+        openIssues: items[index].openIssues,
+        name: items[index].name,
+      ),
       itemCount: items.length,
     );
   }
