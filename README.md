@@ -12,7 +12,7 @@ Simple app which use GitHub API
 
 ## Getting Started 🚀
 
-This project contains 3 flavors:
+This project contains 3 flavors (please run it through dev):
 
 - development
 - staging
