@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_explorer/presentation/blocs/issue_bloc/issues_bloc.dart';
 import 'package:git_explorer/presentation/blocs/issue_bloc/issues_state.dart';
+import 'package:intl/intl.dart';
 
 class IssuesPage extends StatelessWidget {
   final String repoName;
@@ -16,10 +17,18 @@ class IssuesPage extends StatelessWidget {
       body: BlocBuilder<IssuesBloc, IssuesState>(
         builder: (context, state) {
           return state.maybeWhen(
-              orElse: () => SizedBox(),
-              loading: () => const CircularProgressIndicator.adaptive(),
+              orElse: () => const SizedBox(),
+              loading: () =>
+                  const Center(child: CircularProgressIndicator.adaptive()),
               success: (issues) => ListView.separated(
-                    itemBuilder: (context, index) => Text(issues[index].title),
+                    itemBuilder: (context, index) => Column(
+                      children: [
+                        Text(issues[index].title),
+                        Text(
+                          DateFormat.yMMMd().format(issues[index].date),
+                        ),
+                      ],
+                    ),
                     itemCount: issues.length,
                     separatorBuilder: (_, __) => const Divider(),
                   ));

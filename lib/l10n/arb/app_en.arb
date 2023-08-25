@@ -2,6 +2,9 @@
     "@@locale": "en",
     "counterAppBarTitle": "GitHub Explorer",
     "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+        "description": "Text shown in the AppBar of the Counter Page",
+        "typeTo": "Type to search ...",
+        "openIssues": "Open issues:",
+        "issues": "Issues"
     }
 }
